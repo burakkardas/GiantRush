@@ -5,6 +5,7 @@ namespace BUMGames
         public const string DIAMOND = "Diamond";
         public const string HUMAN = "Human";
         public const string LEVEL_END = "LevelEnd";
+        public const string GATE = "ColorGate";
     }
 
 

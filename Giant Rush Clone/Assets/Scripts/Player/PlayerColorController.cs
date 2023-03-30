@@ -2,67 +2,71 @@ using System.Collections.Generic;
 using UnityEngine;
 using BUMGames;
 
+
+
 public class PlayerColorController : MonoBehaviour
 {
-    private Dictionary<int, string> colors = new Dictionary<int, string>();
-    [SerializeField] private List<Color> colorList = new List<Color>();
+    [SerializeField] private PlayerDataTransmitter _playerDataTransmitter;
+
+    public ColorData colorData = new ColorData();
 
     [SerializeField] private Material _playerMaterial;
-
     [SerializeField] private float _duration;
-
-    public string currentColor;
-    public int currentIndex;
 
 
     private void Awake()
     {
-        AddColorsDictionaryItem();
+        colorData.SetCurrentColor();
+        Utility.SetMaterialColorSmoothTranstations(_playerMaterial, colorData.currentColor, 0.25f, false);
+        _playerDataTransmitter.SetColorhumanIcon(colorData.currentColor);
     }
 
 
 
-    private void Start()
+    public void SetPlayerColor(string color)
     {
-        CheckPlayerColor();
-        Utility.SetMaterialColorSmoothTranstations(_playerMaterial, colorList[currentIndex], 0.5f, false);
+        colorData.ChangeCurrentColor(color);
+        Utility.SetMaterialColorSmoothTranstations(_playerMaterial, colorData.currentColor, 0.25f, false);
+    }
+}
+
+
+
+[System.Serializable]
+public class ColorData
+{
+    private Dictionary<string, Color> colors = new Dictionary<string, Color>() {
+        {GameColors.YELLOW, new Color32(255, 164, 0, 255)},
+        {GameColors.ORANGE, new Color32(253, 129, 70, 255)},
+        {GameColors.BLUE, new Color32(0, 159, 255, 255)},
+    };
+
+
+    public enum ColorType
+    {
+        Yellow,
+        Orange,
+        Blue
+    }
+
+    public ColorType colorType;
+
+    [HideInInspector] public Color currentColor;
+    [HideInInspector] public string currentColorName;
+
+
+
+    public void SetCurrentColor()
+    {
+        currentColorName = colorType.ToString();
+        currentColor = colors[currentColorName];
     }
 
 
 
-    private void CheckPlayerColor()
+    public void ChangeCurrentColor(string color)
     {
-        if (currentColor == "")
-            SetRandomPlayerColor();
-        else
-        {
-            for (int i = 0; i < colors.Count; i++)
-            {
-                if (currentColor == colors[i])
-                {
-                    currentIndex = i;
-                }
-            }
-        }
-    }
-
-
-
-    private void SetRandomPlayerColor()
-    {
-        currentIndex = Random.Range(0, colors.Count);
-
-        currentColor = colors[currentIndex];
-    }
-
-
-
-
-
-    private void AddColorsDictionaryItem()
-    {
-        colors.Add(0, GameColors.YELLOW);
-        colors.Add(1, GameColors.ORANGE);
-        colors.Add(2, GameColors.BLUE);
+        currentColorName = color;
+        currentColor = colors[currentColorName];
     }
 }

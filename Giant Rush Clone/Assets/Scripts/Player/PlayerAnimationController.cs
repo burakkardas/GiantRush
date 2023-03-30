@@ -10,6 +10,12 @@ public class PlayerAnimationController : MonoBehaviour
     {
         _animator.SetBool(AnimationParameters.RUN, value);
     }
+
+
+    public void PlayPunchAnimation()
+    {
+        _animator.SetTrigger(AnimationParameters.PUNCH);
+    }
 }
 
 
@@ -17,4 +23,5 @@ public class PlayerAnimationController : MonoBehaviour
 struct AnimationParameters
 {
     public const string RUN = "Run";
+    public const string PUNCH = "Punch";
 }

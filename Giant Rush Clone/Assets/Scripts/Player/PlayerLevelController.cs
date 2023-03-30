@@ -16,11 +16,16 @@ public class PlayerLevelController : MonoBehaviour
 
 
 
-    private void SetPlayerLevel(int value)
+    public void SetPlayerLevel(int value)
     {
-        if (_level > 0)
+        if (_level >= 1)
         {
             _level += value;
+
+            if (_level <= 0)
+            {
+                _level = 1;
+            }
         }
 
 

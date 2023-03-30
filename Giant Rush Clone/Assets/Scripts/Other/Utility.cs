@@ -32,5 +32,18 @@ namespace BUMGames
                 material.DOColor(endColor, duration).OnComplete(() => material.DOColor(currentColor, duration));
             }
         }
+
+
+
+        public static Vector3 RandomVector(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
+        {
+
+            float randX = Random.Range(minX, maxX);
+            float randY = Random.Range(minY, maxY);
+            float randZ = Random.Range(minZ, maxZ);
+
+            return new Vector3(randX, randY, randZ);
+        }
+
     }
 }

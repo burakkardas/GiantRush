@@ -16,6 +16,23 @@ public class GameManager : MonoBehaviour
     private bool _firstTouch;
 
 
+    private int _humanCount = 0;
+    public int HumanCount
+    {
+        get { return _humanCount; }
+        set { _humanCount = value; }
+    }
+
+
+
+    private int _diamondCount = 0;
+    public int DiamondCount
+    {
+        get { return _diamondCount; }
+        set { _diamondCount = value; }
+    }
+
+
 
     private void Awake()
     {
@@ -41,10 +58,15 @@ public class GameManager : MonoBehaviour
 
     private void HandleGameInputs()
     {
-        if (!_firstTouch)
+        if (Input.GetMouseButtonDown(0))
         {
-            _firstTouch = true;
-            _isStart = true;
+            if (!_firstTouch)
+            {
+                _firstTouch = true;
+                _isStart = true;
+                UIManager.Instance.MoveDownStartPanel();
+            }
         }
+
     }
 }

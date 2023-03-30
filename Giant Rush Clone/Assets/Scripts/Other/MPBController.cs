@@ -5,10 +5,10 @@ public class MPBController : MonoBehaviour
     [SerializeField] private Renderer _objectRenderer;
     private MaterialPropertyBlock _materialPropertyBlock;
 
-    [SerializeField] private Color _mainColor;
+    public Color mainColor;
 
 
-    private void Awake()
+    private void Start()
     {
         SetPropertyBlock();
     }
@@ -18,7 +18,7 @@ public class MPBController : MonoBehaviour
     public void SetPropertyBlock()
     {
         _materialPropertyBlock = new MaterialPropertyBlock();
-        _materialPropertyBlock.SetColor("_BaseColor", _mainColor);
+        _materialPropertyBlock.SetColor("_BaseColor", mainColor);
         _objectRenderer.SetPropertyBlock(_materialPropertyBlock);
     }
 }
